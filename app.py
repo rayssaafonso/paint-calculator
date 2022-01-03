@@ -69,7 +69,7 @@ def calculate_meters(data_format):
     if wall_space == 0.0:
         return wall_space
     else:
-        wall_space = float(wall_space) - float(windows_doors_space)
+        wall_space = round(float(wall_space) - float(windows_doors_space), 2)
         return wall_space
 
 # função para calcular litros necessários
