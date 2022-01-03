@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block title %}Calculadora de tinta{% endblock %}
+{% block body %}
+
+<table name="Results" class="table">
+    <tr>
+        <th>Parede</th>
+        <th>Metros quadrados</th>
+        <th>Litros de tinta</th>
+    </tr>
+    {% for row in all_data %}
+    <tr>
+        <td>
+            {{ row['wall'] }}
+        </td>
+        <td>
+            {{ row['meters'] }}
+        </td>
+        <td>
+            {{ row['liters'] }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h5>Total metros quadrados: {{ total_square_meters }}m²</h5>
+<h5>Total de litros de tintas: {{ total_liters }}L</h5>
+<h5>Latas necessárias para pintar as paredes: <b>{{ cans_required }}</b></h5>
+
+<div style="text-align: center">
+    <form action="/">
+        <input type="submit" value="Início"/>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block title %}Calculadora de Tinta{% endblock %}
+{% block body %}
+
+<p class="lead">Quantidade de Paredes:</p>
+<form action="measurements" method="get">
+    <input type="number" name="walls" min="1" required/>
+    <input type="submit"/>
+</form>
+
+{% endblock %}

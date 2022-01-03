@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block title %}Calculadora de tinta{% endblock %}
+{% block body %}
+
+<form action="results" method="post">
+    <table name="dimensions_table" class="table">
+        <tr>
+            <th>Parede</th>
+            <th>Altura (m)</th>
+            <th>Largura (m)</th>
+            <th>Portas</th>
+            <th>Janelas</th>
+        </tr>
+        {% for wall in range(walls|int) %}
+        <tr>
+            <td>
+                {{ wall + 1 }}
+            </td>
+            <td>
+                <input type="number" step="any" name="height-{{ wall }}" required/>
+            </td>
+            <td>
+                <input type="number" step="any" name="width-{{ wall }}" required/>
+            </td>
+            <td>
+                <input type="number" name="door-{{ wall }}" required/>
+            </td>
+            <td>
+                <input type="number" name="window-{{ wall }}" required/>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit">
+</form>
+
+{% endblock %}
+

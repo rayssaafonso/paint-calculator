@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de tinta</h1>
+        {% block body %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p class="text-center"><b>Regras de Negócio:</b></p>
+        <p class="text-center">Nenhuma parede pode ter menos de 1m² nem mais de 15m².</p>
+        <p class="text-center">O total de área das portas e janelas deve ser no máximo 50% da área de parede.</p>
+        <p class="text-center">A altura de paredes com porta deve ser, no mínimo, 30 centímetros maior que a altura da porta.</p>
+        <p class="text-center"><b>Qualquer parede que não cumprir as regras terá suas dimensões zeradas!</b></p>
+        <p class="text-center">As variações de tamanho das latas de tinta são: 0,5L, 2,5L, 3,6L e 18L.</p>
+    </footer>
+</body>
+</html>
