@@ -1,7 +1,7 @@
 # Calculador de Tinta
 Uma aplicação simples para calcular quantos litros/latas de tinta serão necessários para pintar as paredes de uma sala. Foram utilizados Python com Flask e HTML para o desenvolvimento.
 
-Disponível online em: `http://paint-calculator.herokuapp.com/`
+Disponível online em: http://paint-calculator.herokuapp.com/
 
 
 ## Instalação
