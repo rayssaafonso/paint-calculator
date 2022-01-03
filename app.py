@@ -32,7 +32,7 @@ def results():
         total_liters += calculate_liters(data_format)
         total_liters = round(total_liters, 2)
         total_square_meters += calculate_meters(data_format)
-        total_square_meters = round(total_liters, 2)
+        total_square_meters = round(total_square_meters, 2)
         cans_required = calculate_cans(total_liters)
         all_data.append(data_format)
     return render_template(
