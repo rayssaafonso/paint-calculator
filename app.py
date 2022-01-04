@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import math
 
 app = Flask(__name__)
 
@@ -23,15 +22,19 @@ def results():
     total_liters = 0
     total_square_meters = 0
 
-    # loop de para chamadas da funções
+    # loop para chamadas das funções
     for wall in range(int(number_data)):
         data_format = extract_wall_info(data, wall)
-        data_format['meters'] = calculate_meters(data_format)
-        data_format['liters'] = calculate_liters(data_format)
+        data_format['meters_full'] = calculate_meters(data_format['height'], data_format['width'])
+        data_format['windows'] = calculate_windows(data_format['window'])
+        data_format['doors'] = calculate_doors(data_format['door'])
+        data_format['meters_subtracted'] = subtract_windows_doors(data_format['windows'], data_format['doors'], data_format['meters_full'])
+        data_format['walls_rules'] = check_rules(data_format['meters_subtracted'], data_format['windows'], data_format['doors'], data_format['height'])
+        data_format['liters'] = calculate_liters(data_format['walls_rules'])
         data_format['wall'] = wall + 1
-        total_liters += calculate_liters(data_format)
+        total_liters += calculate_liters(data_format['walls_rules'])
         total_liters = round(total_liters, 2)
-        total_square_meters += calculate_meters(data_format)
+        total_square_meters += check_rules(data_format['meters_subtracted'], data_format['windows'], data_format['doors'], data_format['height'])
         total_square_meters = round(total_square_meters, 2)
         cans_required = calculate_cans(total_liters)
         all_data.append(data_format)
@@ -44,37 +47,52 @@ def results():
     )
 
 # função para calcular metros quadrados
-def calculate_meters(data_format):
-    wall_space = float(data_format['height']) * float(data_format['width'])
-    available_space = float(data_format['height']) * float(data_format['width'])/2
-    windows_doors_space = []
+def calculate_meters(height, width):
+    wall_space = float(height) * float(width)
+    return wall_space
+
+# função para calcular espaço das janelas
+def calculate_windows(window):
+    windows_space = []
     window_size = 2.00 * 1.20
+    windows = int(window)
+    if windows > 0:
+        for i in range(windows):
+            windows_space.append(window_size)
+    windows_space = float(sum(windows_space))
+    return windows_space
+
+# função para calcular espaço das portas
+def calculate_doors(door):
+    doors_space = []
     door_size = 0.80 * 1.90
-    windows = int(data_format['window'])
-    doors = int(data_format['door'])
+    doors = int(door)
+    if doors > 0:
+        for i in range(doors):
+            doors_space.append(door_size)
+    doors_space = float(sum(doors_space))
+    return doors_space
+
+# diminuir o tamanho das portas e janelas do espaço total
+def subtract_windows_doors(windows, doors, meters_full):
+    wall_space = meters_full - (windows + doors)
+    return wall_space
+
+# validar regras de negócio
+def check_rules(meters_full, windows, doors, height):
+    available_space = meters_full / 2
+    wall_space = meters_full
     if wall_space < 1 or wall_space > 15:
         wall_space = 0.0
-    elif windows > 0:
-        for i in range(windows):
-            windows_doors_space.append(window_size)
-    elif doors > 0:
-        if float(data_format['height']) < 2.20:
-            wall_space = 0.0
-        else:
-            for i in range(doors):
-                windows_doors_space.append(door_size)
-    windows_doors_space = float(sum(windows_doors_space))
-    if available_space < windows_doors_space:
+    if float(height) < 2.20:
         wall_space = 0.0
-    if wall_space == 0.0:
-        return wall_space
-    else:
-        wall_space = round(float(wall_space) - float(windows_doors_space), 2)
-        return wall_space
+    if available_space < (windows + doors):
+        wall_space = 0.0
+    return wall_space
 
 # função para calcular litros necessários
-def calculate_liters(data_format):
-    liters = round(float(data_format['meters']) / 5, 2)
+def calculate_liters(meters_subtracted):
+    liters = round(float(meters_subtracted) / 5, 2)
     return liters
 
 # retorno os dados como float
