@@ -60,7 +60,7 @@ def calculate_windows(window):
         for i in range(windows):
             windows_space.append(window_size)
     windows_space = float(sum(windows_space))
-    return windows_space
+    return round(windows_space, 2)
 
 # função para calcular espaço das portas
 def calculate_doors(door):
@@ -71,12 +71,12 @@ def calculate_doors(door):
         for i in range(doors):
             doors_space.append(door_size)
     doors_space = float(sum(doors_space))
-    return doors_space
+    return round(doors_space, 2)
 
 # diminuir o tamanho das portas e janelas do espaço total
 def subtract_windows_doors(windows, doors, meters_full):
     wall_space = meters_full - (windows + doors)
-    return wall_space
+    return round(wall_space, 2)
 
 # validar regras de negócio
 def check_rules(meters_full, windows, doors, height):
@@ -88,7 +88,7 @@ def check_rules(meters_full, windows, doors, height):
         wall_space = 0.0
     if available_space < (windows + doors):
         wall_space = 0.0
-    return wall_space
+    return round(wall_space, 2)
 
 # função para calcular litros necessários
 def calculate_liters(meters_subtracted):
