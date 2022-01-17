@@ -10,7 +10,7 @@ Para rodar esse app será necessário ter Python 3 e Pip instalados.
 
 ### Clonar o projeto
 ```bash
-$ git clone https://gitlab.com/rayssaafonso/paint-calculator.git
+$ git clone https://github.com/rayssaafonso/paint-calculator.git
 ```
 
 ### Instalando os requisitos
